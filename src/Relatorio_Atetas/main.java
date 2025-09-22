@@ -11,50 +11,93 @@ public class main {
 
 		int qtdAtletas = sc.nextInt();
 
+		String nomeMaior = "";
+		int maiorNumero = Integer.MIN_VALUE;
+
 		String name;
 		char sexo;
-		int pesoMedio, porcentHomens, peso, altura;
-		int homens = 0;
+		int altura;
 		int mulheres = 0;
-		int altMedMulheres = 0;
-		int somaAltF = 0;
-		int result = 0;
+		int homens = 0;
+		int pesoTotal = 0;
+		int peso;
+		int qtdP = 0;
 
 		for (int i = 0; i < qtdAtletas; i++) {
-			System.out.printf("Digite os dados do atleta numero %d%n", i + 1);
-			System.out.println("name");
+			System.out.printf("Digite os dados do atleta numero: %d%n", +i + 1);
+
+			// nome
+			System.out.print("Nome:");
 			name = sc.next();
 
 			// Sexo
-			System.out.println("sexo");
+			System.out.println("Sexo");
 			sexo = sc.next().charAt(0);
+			if (sexo == 'M' || sexo == 'F') {
 
-			if (sexo != 'M') {
-				mulheres++;
-				altMedMulheres++;
-				System.out.println("Altura");
-				altura = sc.nextInt();
-				if (altura < 0) {
-					System.out.println("Valor invalido");
-					altura = sc.nextInt();
+				if (sexo != 'M') {
+					// se for feminino
+					mulheres++;
+
 				} else {
-					somaAltF = (altura + altura);
-			
+					// se for Masculino
+					homens++;
 				}
 
+				// peso
+				System.out.println("peso");
+				peso = sc.nextInt();
+				if (peso < 0) {
+					System.out.println("Valor invalido");
+					System.out.println("peso");
+					peso = sc.nextInt();
+				}
+
+				qtdP += peso;
+
+				
+				// altura
+				System.out.println("Altura");
+				altura = sc.nextInt();
+				// verificar altura
+				if (altura < 0) {
+					System.out.println("Valor invalido");
+					System.out.println("altura");
+					peso = sc.nextInt();
+				}
+				
+				if(altura > maiorNumero) {
+					maiorNumero = altura;
+					nomeMaior = name;
+				}
+				
+				
+				
+				
+				
+
+				/// verificação do sexo
 			} else {
-				homens++;
+				System.out.println("Valor invalido");
+				System.out.println("F ou M");
+				sexo = sc.next().charAt(0);
 			}
 
-			// peso
-			
-
 		}
+
 		
-		result = somaAltF / mulheres;
-
-		System.out.println(result);
-
+		int qtdF = mulheres;
+		int qtdM = homens;
+		int totalAteltas = qtdM +qtdF;
+		
+		System.out.println("aqui"+mulheres + homens + totalAteltas);
+		double porcentHomens = (homens / totalAteltas) * 100;
+		
+		
+		
+		System.out.println(qtdP);
+		System.out.println(nomeMaior);
+		System.out.println(porcentHomens);
 		sc.close();
 
 	}
