@@ -21,83 +21,77 @@ public class main {
 		int homens = 0;
 		int pesoTotal = 0;
 		int peso;
-		int qtdP = 0;
+		double somaAlturas = 0;
+		int qtdMulhersComAltura = 0;
 
 		for (int i = 0; i < qtdAtletas; i++) {
-			System.out.printf("Digite os dados do atleta numero: %d%n", +i + 1);
+			System.out.printf("Digite os dados do atleta numero: %d%n", i + 1);
 
-			// nome
-			System.out.print("Nome:");
+			// Nome
+			System.out.print("Nome: ");
 			name = sc.next();
 
 			// Sexo
-			System.out.println("Sexo");
+			System.out.print("Sexo (M/F): ");
 			sexo = sc.next().charAt(0);
-			if (sexo == 'M' || sexo == 'F') {
-
-				if (sexo != 'M') {
-					// se for feminino
-					mulheres++;
-
-				} else {
-					// se for Masculino
-					homens++;
-				}
-
-				// peso
-				System.out.println("peso");
-				peso = sc.nextInt();
-				if (peso < 0) {
-					System.out.println("Valor invalido");
-					System.out.println("peso");
-					peso = sc.nextInt();
-				}
-
-				qtdP += peso;
-
-				
-				// altura
-				System.out.println("Altura");
-				altura = sc.nextInt();
-				// verificar altura
-				if (altura < 0) {
-					System.out.println("Valor invalido");
-					System.out.println("altura");
-					peso = sc.nextInt();
-				}
-				
-				if(altura > maiorNumero) {
-					maiorNumero = altura;
-					nomeMaior = name;
-				}
-				
-				
-				
-				
-				
-
-				/// verificação do sexo
-			} else {
-				System.out.println("Valor invalido");
-				System.out.println("F ou M");
+			while (sexo != 'M' && sexo != 'F') {
+				System.out.print("Valor inválido! Digite F ou M: ");
 				sexo = sc.next().charAt(0);
 			}
 
+			if (sexo == 'M') {
+				homens++;
+			} else {
+				mulheres++;
+			}
+
+			// Peso
+			System.out.print("Peso: ");
+			peso = sc.nextInt();
+			while (peso <= 0) {
+				System.out.print("Valor inválido! Favor digitar um valor positivo: ");
+				peso = sc.nextInt();
+			}
+			pesoTotal += peso;
+
+			// Altura
+			System.out.print("Altura: ");
+			altura = sc.nextInt();
+			while (altura <= 0) {
+				System.out.print("Valor inválido! Favor digitar um valor positivo: ");
+				altura = sc.nextInt();
+			}
+
+			if (altura > maiorNumero) {
+				maiorNumero = altura;
+				nomeMaior = name;
+			}
+
+			if (sexo == 'F') {
+				somaAlturas += altura;
+				qtdMulhersComAltura++;
+			}
 		}
 
-		
-		int qtdF = mulheres;
-		int qtdM = homens;
-		int totalAteltas = qtdM +qtdF;
-		
-		System.out.println("aqui"+mulheres + homens + totalAteltas);
-		double porcentHomens = (homens / totalAteltas) * 100;
-		
-		
-		
-		System.out.println(qtdP);
-		System.out.println(nomeMaior);
-		System.out.println(porcentHomens);
+		int totalAtletas = homens + mulheres;
+
+		// Correção do cálculo do peso médio
+		double pesoMedio = (double) pesoTotal / totalAtletas;
+
+		double porcentHomens = ((double) homens / totalAtletas) * 100;
+
+		System.out.println("\nRELATÓRIO:");
+		System.out.printf("Peso médio dos atletas: %.2f%n", pesoMedio);
+		System.out.println("Atleta mais alto: " + nomeMaior);
+		System.out.printf("Porcentagem de homens: %.1f%%%n", porcentHomens);
+
+		if (qtdMulhersComAltura > 0) {
+			double mediaAlturaMulheres = somaAlturas / qtdMulhersComAltura;
+			System.out.printf("Altura média das mulheres: %.2f%n", mediaAlturaMulheres);
+		} else {
+			System.out.println("Não há mulheres cadastradas.");
+		}
+
 		sc.close();
 
 	}
